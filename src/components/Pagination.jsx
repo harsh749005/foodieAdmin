@@ -5,7 +5,7 @@ import { assets } from '../assets/admin_assets/assets'
 const Pagination = () => {
     
   return (
-    <div className='w-60 h-[88vh] border-r border-slate-400'>
+    <div className='w-60 h-[100vh] lg:h-[88vh] border-r border-slate-400'>
       <ul className="w-full flex flex-col gap-5 justify-between items-center lg:text-md  ">
            
             <li  className='hamburgerMenuLi mt-2 w-full flex justify-end items-center gap-2  p-2 hover:bg-orange-500  cursor-pointer'>

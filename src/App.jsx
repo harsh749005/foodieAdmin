@@ -12,8 +12,8 @@ function App() {
       <Navbar />
       <div className="w-full  flex items-start">
         <Pagination />
-        {/* <Orders /> */}
-        <ListItem/>
+        <Orders />
+        {/* <ListItem/> */}
       </div>
     </>
   );
