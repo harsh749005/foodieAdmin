@@ -1,5 +1,4 @@
 import { useState } from "react";
-import Dashboard from "./pages/Dashboard";
 import Pagination from "./components/Pagination";
 import Navbar from "./components/Navbar";
 import Orders from "./pages/Orders";
