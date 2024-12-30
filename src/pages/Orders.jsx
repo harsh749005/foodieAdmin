@@ -18,9 +18,9 @@ const Orders = () => {
     // Render dropdown options
   return (
     <div className='w-full mt-5 flex flex-col gap-4'>
-      <h1 className='text-2xl font-medium ml-[64px]'>My Orders</h1>
+      <h1 className='text-2xl font-medium m-auto md:ml-[64px]  '>My Orders</h1>
       <div className=' w-[90%] lg:w-[90%] m-auto flex flex-col gap-5'>
-      <div className='h-64 md:h-max flex flex-col justify-between  md:flex-row md:justify-between pt-5 border-2 border-orange-400 rounded p-2'>
+      <div className='h-max  flex flex-col justify-between  md:flex-row md:justify-between pt-5 border-2 border-orange-400 rounded p-2'>
         <div className='w-12 h-12'>
             <img className='w-full h-full object-cover'src={assets.parcel_icon} alt="parcel icon" />
         </div>
@@ -63,7 +63,7 @@ const Orders = () => {
       </div>
     </div>
     <div className=' w-[90%] lg:w-[90%] m-auto flex flex-col gap-5'>
-      <div className='h-64 md:h-max flex flex-col justify-between  md:flex-row md:justify-between pt-5 border-2 border-orange-400 rounded p-2'>
+      <div className='h-max flex flex-col justify-between  md:flex-row md:justify-between pt-5 border-2 border-orange-400 rounded p-2'>
         <div className='w-12 h-12'>
             <img className='w-full h-full object-cover'src={assets.parcel_icon} alt="parcel icon" />
         </div>
