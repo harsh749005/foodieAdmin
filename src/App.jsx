@@ -3,6 +3,7 @@ import Pagination from "./components/Pagination";
 import Navbar from "./components/Navbar";
 import Orders from "./pages/Orders";
 import ListItem from "./pages/ListItem";
+import AddItem from "./pages/AddItem";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -12,7 +13,8 @@ function App() {
       <Navbar />
       <div className="w-full  flex items-start">
         <Pagination />
-        <Orders />
+        {/* <Orders /> */}
+        <AddItem/>
         {/* <ListItem/> */}
       </div>
     </>
