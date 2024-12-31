@@ -16,7 +16,7 @@ const AddItem = () => {
     console.log(option);
   }, [option]);
   return (
-    <div className="w-[90%] lg:w-[80%] m-auto">
+    <div className="w-full md:w-[90%] lg:w-[90%] m-auto">
       <div className="flex flex-col gap-5  md:w-[650px] w-full md:pl-10 p-2">
         <div className="flex flex-col gap-2">
           <h1 className="text-lg text-slate-500">Upload Image</h1>
