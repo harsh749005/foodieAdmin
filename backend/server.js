@@ -1,8 +1,14 @@
-const mysql = require('mysql');
 const express = require('express');
 const app = express();
+const cors = require('cors');
+const mysql = require('mysql');
 
 // Middleware
+app.use( cors({
+    origin: "http://localhost:5173",
+    credentials: true,
+    methods: ["GET", "POST","DELETE"],
+  }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 // Database connection
@@ -24,8 +30,18 @@ app.post('/insertAD', (req, res) => {
     const {name,email,password} = req.body;
     const sql = 'INSERT INTO adminDetails (name,email,password) VALUES(?,?,?)';
     db.query(sql,[name,email,password], (err, result) => {
-        if (err) throw err;
-        res.send('Admin inserted successfully');
+        if (err) {
+            return res.status(500).json({
+                success: false,
+                message: 'Failed to add admin',
+                error: err.message
+            })
+        };
+        res.send({
+            success: true,
+            message: 'Admin added successfully',
+            id: result.insertId
+        });
     });
 })
 
@@ -39,6 +55,7 @@ app.get('/fetchAD', (req, res) => {
 app.get('/', (req, res) => {
     res.send('Hello from Foodie Server');
 })
-app.listen(3000,(req,res)=>{
-    console.log(`Server is running on http://localhost:${3000}`);
+const port = 8081;
+app.listen(port,(req,res)=>{
+    console.log(`Server is running on http://localhost:${port}`);
 })
