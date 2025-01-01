@@ -5,6 +5,8 @@ import Orders from "./pages/Orders";
 import ListItem from "./pages/ListItem";
 import AddItem from "./pages/AddItem";
 import { Routes,Route } from "react-router-dom";
+import Login from "./Auth/Login";
+import Register from "./Auth/Register";
 
 function App() {
 
@@ -19,6 +21,8 @@ function App() {
           <Route exact path="/foodieAdmin/orders" element={<Orders />} />
           <Route exact path="/foodieAdmin/add-item" element={<AddItem />} />
           {/* <Route exact path="/edit-item/:id" element={<EditItem />} /> */}
+          <Route exact path="/foodieAdmin/login" element={<Login />} />
+          <Route exact path="/foodieAdmin/register" element={<Register />} />
         </Routes>
       </div>
     </>
