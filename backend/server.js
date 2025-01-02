@@ -44,10 +44,18 @@ app.post('/register', (req, res) => {
     })
 })
 
-app.get('/fetchAD', (req, res) => {
-    db.query('SELECT * FROM adminDetails', (err, result) => {
+app.post('/login', (req, res) => {
+    const {email, password} = req.body;
+    const sql = 'SELECT * FROM adminDetails WHERE email =? AND password =?';
+    db.query(sql,[email,password], (err, result) => {
         if (err) throw err;
-        res.json(result);
+        else if(result.length > 0) {
+            res.send('Login successful');
+        }
+        else {
+            res.send('Invalid credentials');
+        }
+        
     });
 })
 

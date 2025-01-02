@@ -1,18 +1,29 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import {toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const Login = () => {
   
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const handleSubmit = (e)=>{
+  const handleSubmit = async (e)=>{
     e.preventDefault();
     //call login api here
     const values = {password: password, email: email}
-    const response = axios.post('http://localhost:8081/insertAD',values);
-    console.log("response",response);
+    const response = await axios.post('http://localhost:8081/login',values);
+    if(response.data === "Invalid credentials"){
+      toast.error("Invalid email or password");
+      
+    }
+    else if (response.status === 200) {
+       toast.success("Logdin successfully");
+            setEmail("");
+            setPassword("");
+       
+    }
+    
 
-    console.log("data",values);
     // navigate to dashboard
     // history.push("/dashboard");
   }
@@ -28,7 +39,7 @@ const Login = () => {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           className="text-[18px] p-2 border-2 rounded border-slate-200 bg-transparent outline-red-500 pl-5"
-          placeholder="Your Name"
+          placeholder="Your Email"
         />
         <input
           type="password"
