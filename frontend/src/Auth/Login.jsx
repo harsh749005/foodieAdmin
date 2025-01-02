@@ -7,6 +7,7 @@ const Login = () => {
   
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  axios.defaults.withCredentials = true;
   const handleSubmit = async (e)=>{
     e.preventDefault();
     //call login api here
@@ -20,7 +21,7 @@ const Login = () => {
        toast.success("Logdin successfully");
             setEmail("");
             setPassword("");
-       
+          
     }
     
 

@@ -8,6 +8,7 @@ const Register = () => {
   const [name,setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  axios.defaults.withCredentials = true;
   const handleForm = async (e) =>{
     e.preventDefault();
     const values = {name,email,password}
@@ -20,6 +21,7 @@ const Register = () => {
       setName("");
       setEmail("");
       setPassword("");
+      
     }
     else{
       toast.error("Failed to create account");
