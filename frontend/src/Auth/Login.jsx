@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import {toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 const Login = () => {
@@ -8,6 +8,7 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   axios.defaults.withCredentials = true;
+  const navigate = useNavigate();
   const handleSubmit = async (e)=>{
     e.preventDefault();
     //call login api here
@@ -21,7 +22,9 @@ const Login = () => {
        toast.success("Logdin successfully");
             setEmail("");
             setPassword("");
-          
+            console.log(response);
+
+            navigate('/foodieAdmin/');
     }
     
 

@@ -29,12 +29,13 @@ db.connect((err) => {
 });
 const verifyUser = (req, res, next) => {
     const token = req.cookies.token;
+    console.log("Token"+token);
     if (!token) {
       return res.status(401).json({ message: "Token is not provided" });
     } else {
       jwt.verify(token, "1234", (err, decoded) => {
         if (err) {
-          return res.json({ Error: "Token is not okay" });
+          return res.json({ Error: "Token is not same" });
         } else {
           req.email = decoded.email;
           next();
@@ -43,7 +44,7 @@ const verifyUser = (req, res, next) => {
     }
   };
   app.get('/', verifyUser, (req, res) => {
-    res.send(`success ${req.email}!`);
+    res.send(`Hello ${req.email}!`);
   });
 
 // API endpoints
@@ -58,7 +59,7 @@ app.post('/register', (req, res) => {
             
             const sql = 'INSERT INTO adminDetails (name, email, password) VALUES(?,?,?)';
             db.query(sql,[name,email,password],(err, result) => {
-                const token = jwt.sign({email},"1234",{expiresIn:"1h"});
+                const token = jwt.sign({email},"1234",{expiresIn:"1d"});
             res.cookie('token', token,{
                 httpOnly: true,
                 secure: process.env.NODE_ENV === "production", // Ensure it's true in production with HTTPS
@@ -79,11 +80,11 @@ app.post('/login', (req, res) => {
     db.query(sql,[email,password], (err, result) => {
         if (err) throw err;
         if(result.length > 0) {
-            const token = jwt.sign({email},"1234",{expiresIn:"1h"});
+            const token = jwt.sign({email},"1234",{expiresIn:"1d"});
             res.cookie('token', token,{
                 httpOnly: true,
                 secure: process.env.NODE_ENV === "production", // Ensure it's true in production with HTTPS
-                maxAge: 60 * 1000,
+                maxAge: 24 * 60 * 1000,
                 path: "/", // Ensure the cookie is available for all paths
                 domain: "localhost",
             });      

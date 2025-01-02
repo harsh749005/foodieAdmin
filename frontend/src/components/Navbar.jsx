@@ -15,11 +15,11 @@ const Navbar = () => {
   }, [state]);
 
   useEffect(() => {
-    axios
-      .get("http://localhost:8081/")
+    axios.defaults.withCredentials = true; // This is required for authenticated requests
+    axios.get("http://localhost:8081/")
       .then((response) => {
         if (response.status === 200) {
-          console.log(response);
+          console.log(response.data);
           setAuth(true);
         } else {
           console.log("User not authenticated");
@@ -48,7 +48,7 @@ const Navbar = () => {
           {state && (
           <div className="w-max absolute flex flex-col gap-2 border-slate-200 bg-zinc-50 px-5 py-5 border-2 right-4 rounded">
             {auth && (
-              <Link to="/foodieAdmin/logout" className="w-full">
+              <Link to="/foodieAdmin/logout" onClick={toggleDropdown} className="w-full">
                 <button className="w-full bg-orange-400 border-2 border-orange-500 cursor-pointer px-5 py-2 rounded text-white text-lg font-medium hover:bg-orange-500 transition-colors">
                   Logout
                 </button>
@@ -56,12 +56,12 @@ const Navbar = () => {
             )}
             {!auth && (
               <>
-                <Link to="/foodieAdmin/login" className="w-full">
+                <Link to="/foodieAdmin/login" onClick={toggleDropdown} className="w-full">
                   <button className="w-full bg-orange-400 border-2 border-orange-500 cursor-pointer px-5 py-2 rounded text-white text-lg font-medium hover:bg-orange-500 transition-colors">
                     Login
                   </button>
                 </Link>
-                <Link to="/foodieAdmin/register" className="w-full">
+                <Link to="/foodieAdmin/register" onClick={toggleDropdown} className="w-full">
                   <button className="w-full bg-orange-400 border-2 border-orange-500 cursor-pointer px-5 py-2 rounded text-white text-lg font-medium hover:bg-orange-500 transition-colors">
                     Signup
                   </button>
