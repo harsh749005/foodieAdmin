@@ -1,32 +1,40 @@
-import React, { useEffect, useState } from "react";
+import React, {  useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import {toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Register = () => {
-  const [name, setName] = useState("");
+  const [name,setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const handleSubmit = async (e)=>{
+  const handleForm = async (e) =>{
     e.preventDefault();
-    //call login api here
-    const values = {name:name,password: password, email: email}
-    const response = await axios.post('http://localhost:8081/insertAD',values);
-    if(response.status === 200) {
-      console.log("Admin inserted successfully", response.data);
+    const values = {name,email,password}
+    const response = await axios.post('http://localhost:8081/register',values);
+    if(response.data === "Admin already exists"){
+      toast.error("Admin already exists");
+    }
+    else if(response.status === 200){
+      toast.success("Account created successfully");
+      setName("");
+      setEmail("");
+      setPassword("");
     }
     else{
-      console.log("Failed to insert admin", response.data);
+      toast.error("Failed to create account");
     }
-
   }
+  
   return (
     <div className="flex flex-col gap-10 bg-white w-[90%] xl:w-[70%] p-8 m-[auto] rounded-lg md:border-2 md:border-slate-400 md:mt-10">
-       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+       <form  className="flex flex-col gap-4" onSubmit={handleForm}>
       <div className="flex justify-between items-center ">
         <h2 className="text-2xl font-medium">Create account</h2>
       </div>
       <div className="flex flex-col gap-4">
         <input
+        required
           type="text"
           value={name}
           onChange={(e) => setName(e.target.value)}
@@ -34,6 +42,7 @@ const Register = () => {
           placeholder="Your Name"
         />
          <input
+         required
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
@@ -41,6 +50,7 @@ const Register = () => {
           placeholder="Your Email"
         />
         <input
+          required
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
@@ -48,7 +58,7 @@ const Register = () => {
           placeholder="Your Password"
         />
         <button className="bg-red-500 h-12 rounded text-white text-[20px] font-medium cursor-pointer">
-          Create account
+         Create Account
         </button>
       </div>
       <div className="flex items-baseline gap-2 ">

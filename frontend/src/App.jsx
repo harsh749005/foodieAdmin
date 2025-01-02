@@ -7,6 +7,8 @@ import AddItem from "./pages/AddItem";
 import { Routes,Route } from "react-router-dom";
 import Login from "./Auth/Login";
 import Register from "./Auth/Register";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
 
@@ -25,6 +27,7 @@ function App() {
           <Route exact path="/foodieAdmin/register" element={<Register />} />
         </Routes>
       </div>
+      <ToastContainer/>
     </>
   );
 }

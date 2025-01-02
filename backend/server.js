@@ -26,23 +26,22 @@ db.connect((err) => {
 });
 
 // API endpoints
-app.post('/insertAD', (req, res) => {
+app.post('/register', (req, res) => {
     const {name,email,password} = req.body;
-    const sql = 'INSERT INTO adminDetails (name,email,password) VALUES(?,?,?)';
-    db.query(sql,[name,email,password], (err, result) => {
-        if (err) {
-            return res.status(500).json({
-                success: false,
-                message: 'Failed to add admin',
-                error: err.message
-            })
-        };
-        res.send({
-            success: true,
-            message: 'Admin added successfully',
-            id: result.insertId
-        });
-    });
+    const sql = 'SELECT * FROM adminDetails WHERE email = ? AND password = ?';
+    db.query(sql,[email,password],(err, result) => {
+        if (err) throw err;
+        if(result.length > 0){
+            res.send( 'Admin already exists');
+        }else{
+            
+            const sql = 'INSERT INTO adminDetails (name, email, password) VALUES(?,?,?)';
+            db.query(sql,[name,email,password],(err, result) => {
+                if (err) throw err;
+                res.json({message: 'Admin added successfully'});
+            });
+        }
+    })
 })
 
 app.get('/fetchAD', (req, res) => {
