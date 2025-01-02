@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const mysql = require('mysql');
-
+const jwt = require("jsonwebtoken");
 // Middleware
 app.use( cors({
     origin: "http://localhost:5173",
