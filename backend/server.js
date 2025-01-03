@@ -4,6 +4,21 @@ const cors = require('cors');
 const mysql = require('mysql');
 const jwt = require("jsonwebtoken");
 const cookie = require('cookie-parser');
+const multer = require("multer");
+const path = require("path");
+const { error } = require('console');
+
+const storage = multer.diskStorage({
+    destination:(req,file,cb)=>{
+        cb(null,path.join(__dirname, 'uploads'));
+    },
+    filename:(req,file,cb)=>{
+        const str = file.originalname;
+        const result = str.replace(/\.(jpg|jpeg|png|gif)$/, "");
+        cb(null, result + Date.now() + path.extname(file.originalname));
+    }
+})
+const upload = multer({ storage: storage });
 // Middleware
 app.use(cookie());
 app.use( cors({
@@ -29,7 +44,7 @@ db.connect((err) => {
 });
 const verifyUser = (req, res, next) => {
     const token = req.cookies.token;
-    console.log("Token"+token);
+    console.log("Token : "+token);
     if (!token) {
       return res.status(401).json({ message: "Token is not provided" });
     } else {
@@ -97,9 +112,18 @@ app.post('/login', (req, res) => {
     });
 })
 
-app.get('/', (req, res) => {
-    res.send('Hello from Foodie Server');
+app.post('/addItem',upload.single("foodImage"), (req, res) => {
+    const {foodName,foodPrice,foodDescription,foodCategory} = req.body;
+    const foodImage = req.file ? req.file.filename : null;
+    const sql = 'INSERT INTO fooditem (	`foodName`, `foodPrice`, `foodDescription`, `foodImage`,`foodCategory`) VALUES(?,?,?,?,?)';
+    db.query(sql, [foodName, foodPrice, foodDescription, foodImage,foodCategory],(err,result)=>{
+        if(err) throw err;
+        return res.json({message: 'Product added successfully'});
+    })
+    
 })
+
+
 const port = 8081;
 app.listen(port,(req,res)=>{
     console.log(`Server is running on http://localhost:${port}`);
