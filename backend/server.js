@@ -6,11 +6,12 @@ const jwt = require("jsonwebtoken");
 const cookie = require('cookie-parser');
 const multer = require("multer");
 const path = require("path");
-const { error } = require('console');
+
+app.use('/uploads', express.static('uploads'));
 
 const storage = multer.diskStorage({
     destination:(req,file,cb)=>{
-        cb(null,path.join(__dirname, 'uploads'));
+        cb(null, "uploads/");
     },
     filename:(req,file,cb)=>{
         const str = file.originalname;
@@ -123,6 +124,13 @@ app.post('/addItem',upload.single("foodImage"), (req, res) => {
     
 })
 
+app.get('/listItems',(req, res)=>{
+    const sql = 'SELECT * FROM fooditem';
+    db.query(sql,(err, result)=>{
+        if(err) throw err;
+        return res.json(result);
+    })
+})
 
 const port = 8081;
 app.listen(port,(req,res)=>{
