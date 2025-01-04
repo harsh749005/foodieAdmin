@@ -12,7 +12,7 @@ const ListItem = () => {
     axios.get("http://localhost:8081/")
     .then(response => {
       if (response.status === 200) {
-        console.log("list itme "+response.data);
+        console.log("list item page "+response.data);
         axios.get('http://localhost:8081/listItems')
         .then((repsonse)=>{
            setData(repsonse.data);
@@ -51,8 +51,8 @@ const ListItem = () => {
         </div>
         {
          
-          data.map((item)=>(
-            <div className='md:flex items-center justify-between p-2 border-2 rounded md:rounded-none md:border-t-0 border-slate-400'>
+          data.map((item,index)=>(
+            <div key={index} className='md:flex items-center justify-between p-2 border-2 rounded md:rounded-none md:border-t-0 border-slate-400'>
             <div className='w-12 h-12'>
                 <img className='w-full h-full object-cover' src={`http://localhost:8081/uploads/${item.foodImage}`} alt="food itme" />
             </div>
