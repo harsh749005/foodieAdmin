@@ -113,6 +113,11 @@ app.post('/login', (req, res) => {
     });
 })
 
+app.get('/logout', (req, res) => {
+    res.clearCookie('token');
+    res.json({message: 'Logged out'});
+})
+
 app.post('/addItem',upload.single("foodImage"), (req, res) => {
     const {foodName,foodPrice,foodDescription,foodCategory} = req.body;
     const foodImage = req.file ? req.file.filename : null;

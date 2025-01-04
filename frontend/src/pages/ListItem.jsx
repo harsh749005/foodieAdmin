@@ -1,19 +1,45 @@
 import React, { useEffect, useState } from 'react'
 import axios from "axios";
-import food1 from '../assets/admin_assets/menu_7.png'
+import Register from '../Auth/Register';
+import Login from '../Auth/Login';
 
 const ListItem = () => {
   const [data,setData] = useState([]);
+  
+  const [isAuthorized, setIsAuthorized] = useState(false);
   useEffect(()=>{
-    axios.get('http://localhost:8081/listItems')
-   .then((repsonse)=>{
-      setData(repsonse.data);
-      console.log(repsonse.data);
-   })
+    axios.defaults.withCredentials = true; // This is required for authenticated requests
+    axios.get("http://localhost:8081/")
+    .then(response => {
+      if (response.status === 200) {
+        console.log("list itme "+response.data);
+        axios.get('http://localhost:8081/listItems')
+        .then((repsonse)=>{
+           setData(repsonse.data);
+           
+           setIsAuthorized(true);
+           console.log(repsonse.data);
+        }).catch(()=>{
+            setIsAuthorized(false);
+        })
+      } else {
+          setIsAuthorized(false)
+      }
+    }).catch(()=>{
+      
+      setIsAuthorized(false);
+    })
+   
   },[])
+  
 
+  if (!isAuthorized) {
+    return <Login/> // Show unauthorized message if the user is not authorized
+  }
   return (
     <div className='w-full md:w-[90%] lg:w-[90%]'>
+      
+    
         <h1 className='font-medium text-2xl m-4'>All Food List</h1>
       <div className='w-full p-4'>
         <div className='hidden md:flex items-center justify-between p-2 bg-slate-300 border-2 rounded md:border-b-0 border-slate-500 md:rounded-l md:rounded-r'>
@@ -24,6 +50,7 @@ const ListItem = () => {
             <h1 className='w-max p-2 font-medium'>Action</h1>
         </div>
         {
+         
           data.map((item)=>(
             <div className='md:flex items-center justify-between p-2 border-2 rounded md:rounded-none md:border-t-0 border-slate-400'>
             <div className='w-12 h-12'>
@@ -44,6 +71,8 @@ const ListItem = () => {
       </div>
       
     </div>
+    
+    
   )
 }
 

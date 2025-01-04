@@ -9,6 +9,7 @@ import Login from "./Auth/Login";
 import Register from "./Auth/Register";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Logout from "./Auth/Logout";
 
 function App() {
 
@@ -24,6 +25,7 @@ function App() {
           <Route exact path="/foodieAdmin/add-item" element={<AddItem />} />
           {/* <Route exact path="/edit-item/:id" element={<EditItem />} /> */}
           <Route exact path="/foodieAdmin/login" element={<Login />} />
+          <Route exact path="/foodieAdmin/logout" element={<Logout />} />
           <Route exact path="/foodieAdmin/register" element={<Register />} />
         </Routes>
       </div>

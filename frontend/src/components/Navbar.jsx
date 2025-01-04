@@ -28,7 +28,7 @@ const Navbar = () => {
       })
       .catch((error) => {
         console.log(error);
-        toast.error("User not authenticated");
+        toast.error("Your are unauthorized");
       });
   }, []);
 
