@@ -40,7 +40,10 @@ const db = mysql.createConnection({
 
 
 db.connect((err) => {
-    if (err) throw err;
+    if (err) {
+        console.error('Error connecting to the database:', err.message);
+        return;
+    }
     console.log('Connected to the database');
 });
 const verifyUser = (req, res, next) => {
@@ -59,8 +62,9 @@ const verifyUser = (req, res, next) => {
       });
     }
   };
+  // protected route
   app.get('/', verifyUser, (req, res) => {
-    res.send(`Hello ${req.email}!`);
+    res.json({email:req.email,greetings:"Hello"});
   });
 
 // API endpoints
@@ -137,6 +141,15 @@ app.get('/listItems',(req, res)=>{
     })
 })
 
+app.post('/orders',(req, res)=>{
+    const {selectedOption,authsDetails} = req.body;
+    const sql = 'INSERT INTO ordercheck (orderStatus,orderOwner) VALUES(?,?)';
+    db.query(sql,[selectedOption,authsDetails],(err, result)=>{
+        if(err) throw err;
+        return res.json({message: 'Order status successfully',email:authsDetails,option:selectedOption});
+    })
+    console.log(selectedOption,authsDetails);
+})
 const port = 8081;
 app.listen(port,(req,res)=>{
     console.log(`Server is running on http://localhost:${port}`);
