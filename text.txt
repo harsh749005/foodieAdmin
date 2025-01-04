@@ -1,0 +1,1 @@
+fetch data from the database and on client side.
