@@ -12,7 +12,7 @@ const Register = () => {
   const handleForm = async (e) =>{
     e.preventDefault();
     const values = {name,email,password}
-    const response = await axios.post('http://localhost:8081/register',values);
+    const response = await axios.post('http://localhost:8080/register',values);
     if(response.data === "Admin already exists"){
       toast.error("Admin already exists");
     }

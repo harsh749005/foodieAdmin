@@ -31,7 +31,7 @@ const AddItem = () => {
     formData.append('foodImage', image);
     formData.append('foodCategory', option);
     axios.defaults.withCredentials = true;
-    axios.post('http://localhost:8081/addItem',formData,{
+    axios.post('http://localhost:8080/addItem',formData,{
       headers:{
         'Content-Type': 'multipart/form-data'
       }

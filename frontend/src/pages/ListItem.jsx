@@ -13,7 +13,7 @@ const ListItem = () => {
     .then(response => {
       if (response.status === 200) {
         console.log("list item page "+response.data);
-        axios.get('http://localhost:8081/listItems')
+        axios.get('http://localhost:8080/listItems')
         .then((repsonse)=>{
            setData(repsonse.data);
            

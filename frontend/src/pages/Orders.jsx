@@ -10,7 +10,7 @@ const Orders = () => {
     // check user is logged in or not
     const [isAuthorized, setIsAuthorized] = useState(false);
     useEffect(()=>{
-      axios.get('http://localhost:8081/')
+      axios.get('http://localhost:8080/')
       .then((response)=>{
         console.log("Order page "+response.data.email);
         setUserAuthDetails(response.data.email); // email is recived from server and sent back to server for inser`

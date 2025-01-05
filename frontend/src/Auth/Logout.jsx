@@ -6,7 +6,7 @@ const Logout = () => {
     // Logout logic here.
   const [logout,setLogout] =useState(false);
   axios.defaults.withCredentials = true;
-  axios.get('http://localhost:8081/logout')
+  axios.get('http://localhost:8080/logout')
    .then((response) => {
     if (response.status === 200) {
         setLogout(true);

@@ -13,7 +13,7 @@ const Login = () => {
     e.preventDefault();
     //call login api here
     const values = {password: password, email: email}
-    const response = await axios.post('http://localhost:8081/login',values);
+    const response = await axios.post('http://localhost:8080/login',values);
     if(response.data === "Invalid credentials"){
       toast.error("Invalid email or password");
       

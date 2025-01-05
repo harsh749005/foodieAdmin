@@ -150,7 +150,7 @@ app.post('/orders',(req, res)=>{
     })
     console.log(selectedOption,authsDetails);
 })
-const port = 8081;
+const port = 8080;
 app.listen(port,(req,res)=>{
     console.log(`Server is running on http://localhost:${port}`);
 })

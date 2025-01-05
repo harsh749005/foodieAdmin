@@ -16,7 +16,7 @@ const Navbar = () => {
 
   useEffect(() => {
     axios.defaults.withCredentials = true; // This is required for authenticated requests
-    axios.get("http://localhost:8081/")
+    axios.get("http://localhost:8080/")
       .then((response) => {
         if (response.status === 200) {
           console.log(response.data);
