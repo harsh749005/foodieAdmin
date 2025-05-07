@@ -2,7 +2,7 @@
 Live working 
 🔗 https://harsh749005.github.io/foodieAdmin/
 
-# Here is the Hightlights 
+# Here are the Hightlights 
 # Admin
 ![image](https://github.com/user-attachments/assets/89326161-f50f-423d-9d41-172c91b02e49)
 
